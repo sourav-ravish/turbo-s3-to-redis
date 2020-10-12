@@ -48,7 +48,11 @@ def main():
     redis = redis_connection()
 
     # Get all file names.
-    file_names = s3.list_objects_v2(Bucket=constants.BUCKET, StartAfter=constants.STARTAFTER, Prefix=constants.S3_PREFIX)['Contents']
+    files = s3.list_objects_v2(Bucket=constants.BUCKET, StartAfter=constants.STARTAFTER, Prefix=constants.S3_PREFIX)
+    if 'Contents' not in files:
+        print ('No files present at the location: ', constants.STARTAFTER)
+        exit (1)
+    file_names = files['Contents']
     
     # Process the files. ie get file -> read data -> store in redis -> delete/move file to new folder
     process_files(s3, redis, file_names)
