@@ -3,6 +3,7 @@ import boto3, json, redis, constants
 def store_in_redis(redis, file_data_json):
     for hash_key in file_data_json:
         for map_key in file_data_json[hash_key]:
+            # print ('Consider key : {} set with value: {}'.format(map_key,file_data_json[hash_key][map_key]))
             redis.hset(hash_key, map_key, file_data_json[hash_key][map_key])
     return
     
@@ -41,6 +42,8 @@ def process_files(s3, redis, file_names):
                 print('File {} processed and moved to {}'.format(file['Key'], key_to_copy_to))
 
 def main():
+    print ('I am in action!')
+
     # initiate s3
     s3=boto3.client('s3')
 
