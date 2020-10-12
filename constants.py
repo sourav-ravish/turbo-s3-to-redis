@@ -1,0 +1,6 @@
+HOST = 'localhost'
+PORT = '6379'
+BUCKET = 'com.fireeye.helix.delta0.us-west-2.hexbox01.sandbox'
+KEY = 'ueba_test/to_process'
+S3_PREFIX = 'ueba_test/to_process/'
+STARTAFTER = 'ueba_test/to_process/'
