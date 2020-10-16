@@ -1,0 +1,24 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: turbo-s3-to-redis
+spec:
+  schedule: "*/1 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: cron-test
+              image: 185869774838.dkr.ecr.us-west-2.amazonaws.com/helix-kubernetes/ingest:cron_test_6
+              env:
+              - name: AWS_ACCESS_KEY_ID
+                value: "ASIASWRVTV73FZVV4P7C"
+              - name: AWS_SECRET_ACCESS_KEY
+                value: "v3ma0dDPdKA+NsNbN3rjm0YaOAU/iiuWyuU6lsBj"
+              - name: AWS_DEFAULT_REGION
+                value: "us-west-2"
+              - name: AWS_SECRET_ACCESS_TOKEN
+                value: 'FwoGZXIvYXdzEJP//////////wEaDIsf/L/h1PZDK1S8JCLiArzQrzFz7bOT0SVq8to6R+OVtEhmZA6En5eZBoheuUsG6ouMHWbMAAPcqjwUi47GbGavsAhd8SCxrUcP3TZaCldM/LQqKe51PlC1j+zRDJxEoQqtFJc1SfXjOCcodfObwYQb21efLUliKTaAxEa7CyGtOJkmuVw9wIt8ru7jUOk1uHZviKX46uvhYbHXkRFVkSFaKSgry0uC2ESq9rbRmWCjPMUSZRSXJXeSBKG6h31Mrwohe4PJFPfcO4feX8N1zmngFKQIDUXQudNqqXhVOPgiKc6BlKBr53kGmlT3pKFBSueTayCe2BJaLEZVrhkrQyY/orC+Y8LHCBCuHoV7pU74xbMgkr6SqbYUL/OpBAMonUs2eu810qgFL3hVdwQqAb2NMfqaEFLk9oEoV2O1cwyiGVK86MPqzwJRiETUOvCnQuDmnTMYA8lsPmwdyHBghZ2Yno4tgx9Fg0i1WSDKtnrc1SiBiZv8BTIjMbnSaGOj3Nb22Zt3ZI2rGEfOmKVyG+L3qOGjIJnis/9qYtU='
+              command: ["python",  "/app/main.py"]
+          restartPolicy: OnFailure

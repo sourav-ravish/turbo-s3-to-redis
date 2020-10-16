@@ -3,8 +3,8 @@ import boto3, json, redis, constants
 def store_in_redis(redis, file_data_json):
     for hash_key in file_data_json:
         for map_key in file_data_json[hash_key]:
-            # print ('Consider key : {} set with value: {}'.format(map_key,file_data_json[hash_key][map_key]))
-            redis.hset(hash_key, map_key, file_data_json[hash_key][map_key])
+            print ('Consider key : {} set with value: {}'.format(map_key,file_data_json[hash_key][map_key]))
+            # redis.hset(hash_key, map_key, file_data_json[hash_key][map_key])
     return
     
 
@@ -45,10 +45,15 @@ def main():
     print ('I am in action!')
 
     # initiate s3
-    s3=boto3.client('s3')
+    s3 = boto3.client(
+                        's3'
+                        # aws_access_key_id='ASIASWRVTV73PX36M6K2',
+                        # aws_secret_access_key='2R2whHqF4YoLNhR91fVNApoeXUdJK2ouitItJzFH',
+                        # aws_session_token='FwoGZXIvYXdzEI///////////wEaDJ4Ym0tZ/kuZfzHS+CLiAiwTpcg5B/c78xl1lHKSXHT09xwXRH31+4Q2H7Ac7Y9/NdxW66DWGbpa9Dox8cTbEj4hZlxA/IVtb3HstuGhlzcP/AAEQ2fdmFTtzlHpeJ/ZPm/i4JJOmsj375jFlLtewsx0+TGjBWm5c3MZyQwB9zJnmU3mvXCH5LrZv809MLkwULWzoNwjWIgdiaKWVcq0Ptgt+u+lI84KmkLIoqAHjnAsI01FsdLBgl7XhZCnjyxEx+xChwBurnPd/RMY6kvc7mXWPZ5LsQ0rZmMADtiNTqW7K45Ux62tN+lL+8VwFP7JmE7VSsSEi1XBMliZZJGaXEbNnkRD+WgNclWWosb/FOROq4PDMHUjjJIijWOQ0swuVJ2jVXlAk49shYvbF0pD+vd073wvDl3+AaYQOLr8PAiwtbEaNp2YbKiK41hcN3zueRkXpZ7Zb95mbfVnbXW0parmA/s+ZwhQsY6++wAAz5sTiijDpJr8BTIjhmxwPDVXCHrf2y3+t70w7kdST/8C4PIdWjnorwhiIuQtvnk=+btyw98ecsbL4BKopaZU2TFrWmJaQz5aUZdI2u1oUua5GtwvLH+AINy6dZOEPnPNGG/lMHBSHewy+uM4UjmjrE60gS/DyIoN2wcxenYJ1/wTXrYkhDx9X4Yj/e5H3ohPX9PVKI1OiPMAy6env8OJ3qhFSL81BFPQ4i4M1xscyvJluwPzKPB26UFGjH5AMGz57jFGLE+ehJecKtjr53h1vkQ/wCpDKZaYNhStEIi9GuDcwZgBQIgClFVji1tQZwBpyOAHhgPF9OqUi4EtqTqVIwOmqlstDbYqCZkcgZ78NPC/h7L52r2aW4dEKfL1+IRGJH307Es0dvqsU/ySHI+VcAq/2LdggnpPIba+7hys3yIK3yx/tuFv2/Arxs8QhhXb5Y3xfxJJ2OD7R1xbtjODRTjSzxOcnH57u8jtse30UKPW/I/yiYjZb8BTIjkGiL4OwM7T+MahB6qBAmQcPe3HKKmruQesWvgvZsshXZqdY='
+    )
 
     # create redis connection to redis server
-    redis = redis_connection()
+    # redis = redis_connection()
 
     # Get all file names.
     files = s3.list_objects_v2(Bucket=constants.BUCKET, StartAfter=constants.STARTAFTER, Prefix=constants.S3_PREFIX)
